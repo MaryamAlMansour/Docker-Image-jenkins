@@ -11,10 +11,10 @@ node {
     stage('Building image') {
         /* This builds the actual image */
         dir ('./backend') {
-             app = docker.build("maryamalmannsour/private-images-backend")
+             app = docker.build("maryamalmannsour/public-images-backend")
         }
         dir ('./frontend') {
-	     web = docker.build("maryamalmannsour/private-images-frontend")
+	     web = docker.build("maryamalmannsour/public-images-frontend")
 	}
 }
 
