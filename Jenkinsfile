@@ -9,16 +9,16 @@ node {
     }
 
     stage('Building image backend') {
-        /* This builds the actual image */
+        /* This builds only one actual image, uncomment the one you want */
         dir ('./backend') {
              app = docker.build("maryamalmannsour/public-images-backend")
 	}
 }
-    stage('Building image frontend') {
-        dir ('./frontend') {
-	     web = docker.build("maryamalmannsour/public-images-frontend")
-	}
-}
+//     stage('Building image frontend') {
+//         dir ('./frontend') {
+// 	     web = docker.build("maryamalmannsour/public-images-frontend")
+// 	}
+// }
 
     stage('Pushing image to Docker-Hub') {
         /* 
