@@ -10,10 +10,13 @@ node {
 
     stage('Building image') {
         /* This builds the actual image */
-                 
-        app = docker.build("maryamalmannsour/private-images-backend")
-	/*app = docker.build("maryamalmannsour/docker-images-frontend")*/
-    }
+        dir ('${env.WORKSPACE}/backend') {
+             app = docker.build("maryamalmannsour/private-images-backend")
+        }
+        dir ('${env.WORKSPACE}/frontend') {
+	     web = docker.build("maryamalmannsour/private-images-frontend")
+	}
+}
 
     stage('Pushing image to Docker-Hub') {
         /* 
