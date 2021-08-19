@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 #expose 3001 for the api to connect to it internally
-EXPOSE 3001
+EXPOSE 3000
 
 #run the app once it starts
 CMD ["node", "index.js"]
