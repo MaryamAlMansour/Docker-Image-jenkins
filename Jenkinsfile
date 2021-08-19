@@ -1,71 +1,33 @@
-pipeline { 
+node {
+    def app
 
-    environment { 
+    stage('Cloning repository from Git') {
+        /* Cloning the Repository to our Workspace */
 
-        registry = "maryamalmannsour/public-docker-image-coding-dojo-belt2-day2" 
-
-        registryCredential = 'docker-hub-id' 
-
-        dockerImage = '' 
-
+        checkout scm
     }
 
-    agent any 
+    stage('Building image') {
+        /* This builds the actual image */
 
-    stages { 
+        app = docker.build("maryamalmannsour/docker-images")
+    }
 
-        stage('Cloning our Git') { 
-
-            steps { 
-
-                git 'https://github.com/MaryamAlMansour/Public-Node-Docker-Image.git' 
-
-            }
-
-        } 
-
-        stage('Building our image') { 
-
-            steps { 
-
-                script { 
-
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-
-                }
-
-            } 
-
+    stage('Testing image') {
+        
+        app.inside {
+            echo "Tests passed"
         }
-
-        stage('Deploy our image') { 
-
-            steps { 
-
-                script { 
-
-                    docker.withRegistry( '', registryCredential ) { 
-
-                        dockerImage.push() 
-
-                    }
-
-                } 
-
-            }
-
-        } 
-
-        stage('Cleaning up') { 
-
-            steps { 
-
-                sh "docker rmi $registry:$BUILD_NUMBER" 
-
-            }
-
-        } 
-
     }
 
+    stage('Pushing image to Docker-Hub') {
+        /* 
+			You would need to first register with DockerHub before you can push images to your account
+		*/
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-id') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+            } 
+                echo "Trying to Push Docker Image Build to DockerHub"
+    }
 }
