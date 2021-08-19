@@ -10,11 +10,9 @@ node {
 
     stage('Building image') {
         /* This builds the actual image */
-                    echo 'Starting to build docker images'
-                    app = docker.build("maryamalmannsour/docker-images-backend:${env.BUILD_ID}","-f ${env.WORKSPACE}/backend/Dockerfile .")
-                    web = docker.build("maryamalmannsour/docker-images-frontend:${env.BUILD_ID}","-f ${env.WORKSPACE}/frontend/Dockerfile .") 
-        /*app = docker.build("maryamalmannsour/docker-images-backend")
-	app = docker.build("maryamalmannsour/docker-images-frontend")*/
+                 
+        app = docker.build("maryamalmannsour/private-images-backend")
+	/*app = docker.build("maryamalmannsour/docker-images-frontend")*/
     }
 
     stage('Pushing image to Docker-Hub') {
