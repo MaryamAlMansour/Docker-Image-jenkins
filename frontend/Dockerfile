@@ -9,11 +9,6 @@ COPY package*.json ./
 # install app depandencies
 RUN npm install
 
-#creating the enviromental variable to connect to postgres
-#ENV API_URL="postgres://YourUserName:dojo-belt2@localhost:5432/YourDatabaseName"
-
-#ENV API_URL="http://localhost:3000"
-
 # bundle the app source
 COPY . .
 
