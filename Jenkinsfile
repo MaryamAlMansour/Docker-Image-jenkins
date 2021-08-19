@@ -10,7 +10,7 @@ node {
     stage('Building image') {
         /* This builds the actual image */
 
-        app = docker.build("maryamalmannsour/docker-images")
+        app = docker.build("maryamalmannsour/docker-images-frontend")
     }
 
     stage('Pushing image to Docker-Hub') {
