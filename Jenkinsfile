@@ -8,11 +8,13 @@ node {
         checkout scm
     }
 
-    stage('Building image') {
+    stage('Building image backend') {
         /* This builds the actual image */
         dir ('./backend') {
              app = docker.build("maryamalmannsour/public-images-backend")
-        }
+	}
+}
+    stage('Building image frontend') {
         dir ('./frontend') {
 	     web = docker.build("maryamalmannsour/public-images-frontend")
 	}
